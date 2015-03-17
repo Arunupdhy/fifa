@@ -1,0 +1,331 @@
+<openerp>
+    <data>
+	<menuitem id="menu_reg1" name="FIFA 2015"/>
+	<menuitem id="player_menu" name="FIFA" parent="menu_reg1" sequence="2"/>
+	
+	<!--#################################Player FORM VIEW #########################-->
+
+	    <record id="player_form" model="ir.ui.view">
+            <field name="name">New player</field>
+            <field name="model">player.reg</field>
+            <field name="arch" type="xml">
+		        <form string="Views">
+	
+<!--################################################################-->
+
+					<sheet>
+						<separator string="Player Information"/>
+						<group>
+							<group>
+								<field name="name" placeholder="Enter First Name"/>
+								<field name="l_name" placeholder="Enter Last Name"/>
+								<field name="age"/>
+								<field name="jersey"/>
+								<field name="gplayer"/>
+							</group>
+							<group>
+								<field name="goal"/>
+								<field name="ycard"/>
+								<field name="rcard"/>
+								<field name="captain"/>
+							</group>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+			
+<!--################################Player TREE VIEW#############################-->
+
+		<record id="player_reg_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">player.reg</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="name"/>
+                    <field name="l_name"/>
+                    <field name="age"/>
+                    <field name="jersey"/>
+                    <field name="gplayer"/>
+                    <field name="captain"/>
+                </tree>
+            </field>
+        </record>
+        
+<!--#############################Player Action#######################-->
+
+		<record id="action_player_reg" model="ir.actions.act_window">
+            <field name="name">Player Registration</field>
+            <field name="res_model">player.reg</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+            <field name="view_id" ref="player_reg_tree"/>
+        </record>
+        
+<!--##################################Team Form View#######################-->
+
+		<record id="team_form" model="ir.ui.view">
+            <field name="name">New Team</field>
+            <field name="model">team.reg</field>
+            <field name="arch" type="xml">
+		        <form string="Views">
+	
+<!--################################################################-->
+
+					<sheet>
+						<separator string="Team Information"/>
+						<group>
+							<group>
+								<field name="p_name"/>
+								<field name="t_name" placeholder="Enter Team Name"/>
+								<field name="n_player"/>
+								<!--<field name="n_player" on_change='onchange_p_name(n_player,context)'/>-->
+								<field name="coach"/>
+								<field name="flag"/>
+							</group>
+							<group>
+								<field name="win"/>
+								<field name="lose"/>
+								<field name="draw"/>
+							</group>
+						</group>
+						<group>
+							<field name="pl_list"/>
+							<field name="p_list"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+			
+<!--################################ Team TREE VIEW#############################-->
+
+		<record id="team_reg_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">team.reg</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="t_name"/>
+                    <field name="n_player"/>
+                    <field name="coach"/>
+                    <field name="p_list"/>
+                    <field name="flag"/>
+                </tree>
+            </field>
+        </record>
+        
+<!--############################# Team Action#######################-->
+
+		<record id="action_team_reg" model="ir.actions.act_window">
+            <field name="name">Team Registration</field>
+            <field name="res_model">team.reg</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+            <field name="view_id" ref="team_reg_tree"/>
+        </record>
+        
+<!--################################# Fixture FORM VIEW ################################-->
+
+	    <record id="fixture_form" model="ir.ui.view">
+            <field name="name">New fixture</field>
+            <field name="model">fixture.info</field>
+            <field name="arch" type="xml">
+		        <form string="Views">
+		        	<header>
+		        		<button name="game1" string="Match Start!" states="plan"/>
+		        		<button name="%(action_approve_student)d" type="action" string="Status Update!" states="game"/>
+						<button name="finish1" string="Match Finish!" states="game" class="oe_highlight"/>
+		        		<field name="state" widget="statusbar" statusbar_visible="plan,game,finish"/>
+		        	</header>
+	
+<!--###################################################################################-->
+
+					<sheet>
+						<separator string="Match Information"/>
+						<group>
+							<group>
+								<field name="team_a" on_change="onchange_p(team_a, context)"/>
+								<field name="team_b"/>
+								<field name="refree"/>
+							</group>
+							<group>
+								<field name="date"/>
+								<field name="score_a"/>
+								<field name="score_b"/>
+								<field name="result"/>
+							</group>
+						</group>
+						<notebook>
+							<page string="Goal Lines">
+								<field name='tab_id'/>
+			 				</page>
+			 				<page string="Yellow Card Lines">
+								<field name='ytab_id'/>
+			 				</page>
+			 				<page string="Red Card Lines">
+								<field name='rtab_id'/>
+			 				</page>
+			 				<page string="Corner Kick Lines">
+								<field name='ctab_id'/>
+			 				</page>
+			 				<page string="Penalty Kick Lines">
+								<field name='ptab_id'/>
+			 				</page>
+						</notebook>
+					</sheet>
+				</form>
+			</field>
+		</record>
+			
+			
+<!--################################ Fixture TREE VIEW#############################-->
+
+		<record id="fixture_info_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">fixture.info</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="team_a"/>
+                    <field name="team_b"/>
+                    <field name="refree"/>
+                    <field name="date"/>
+                    <field name="score_a"/>
+                    <field name="score_b"/>
+                    <field name="result"/>
+                </tree>
+            </field>
+        </record>
+        
+<!--############################# Fixture Action#######################-->
+
+		<record id="action_fixture_info" model="ir.actions.act_window">
+            <field name="name">Fixture</field>
+            <field name="res_model">fixture.info</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+	    	<field name="view_mode">tree,form</field>
+            <field name="view_id" ref="fixture_info_tree"/>
+        </record>
+        
+<!--################################# Refree FORM VIEW #########################-->
+
+	    <record id="refree_form" model="ir.ui.view">
+            <field name="name">New Refree</field>
+            <field name="model">refree.fifa</field>
+            <field name="arch" type="xml">
+		        <form string="Views">
+	
+<!--################################################################-->
+
+					<sheet>
+						<separator string="Refree Information"/>
+						<group>
+							<group>
+								<field name="r_name"/>
+								<field name="ylw_awrd"/>
+								<field name="red_awrd"/>
+							</group>
+							<group>
+								<field name="match_ref"/>
+								<field name="ratings"/>
+								<field name="type"/>
+							</group>
+						</group>
+						<group>
+							<field name="fdbk"/>
+						</group>
+					</sheet>
+				</form>
+			</field>
+		</record>
+		
+<!--################################ Goal Lines Tab TREE VIEW#############################-->
+
+		<record id="tab_info_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">tab.info</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="t_team"/>
+                    <field name="t_player"/>
+                    <field name="t_goal"/>
+                    <field name="t_date"/>
+                    <field name="player"/>
+                </tree>
+            </field>
+        </record>
+		       
+<!--################################ Yellow Card Lines Tab TREE VIEW#############################-->
+
+		<record id="yellow_card_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">yellow.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="y_team"/>
+                    <field name="y_player"/>
+                    <field name="y_card"/>
+                    <field name="y_date"/>
+                </tree>
+            </field>
+        </record>
+		       
+<!--################################ Red Card Lines Tab TREE VIEW#############################-->
+
+		<record id="red_card_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">red.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="r_team"/>
+                    <field name="r_player"/>
+                    <field name="r_card"/>
+                    <field name="r_date"/>
+                </tree>
+            </field>
+        </record>
+        
+<!--################################ Corner Kick Lines Tab TREE VIEW#############################-->
+
+		<record id="corner_kick_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">ckick.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="c_team"/>
+                    <field name="c_player"/>
+                    <field name="c_kick"/>
+                    <field name="c_date"/>
+                </tree>
+            </field>
+        </record>
+        
+<!--################################ Penalty Kick Lines Tab TREE VIEW#############################-->
+
+		<record id="penalty_kick_tree" model="ir.ui.view">
+            <field name="name">tree view</field>
+            <field name="model">pkick.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Tree View">
+                    <field name="p_team"/>
+                    <field name="p_player"/>
+                    <field name="p_kick"/>
+                    <field name="p_date"/>
+                </tree>
+            </field>
+        </record>        
+        
+        
+		       
+<!--#####################################################################-->
+	
+		<menuitem id="menu_player_reg" parent="player_menu" action="action_player_reg" sequence="4"/>
+		<menuitem id="menu_team_reg" parent="player_menu" action="action_team_reg" sequence="8"/>
+		<menuitem id="menu_fixture_info" parent="player_menu" action="action_fixture_info" sequence="12"/>
+	</data>
+</openerp>
+	
